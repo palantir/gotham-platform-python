@@ -23,12 +23,20 @@
     "exceptions": {
         "exampleOperation": {
             "majorVersion": "v1",
-            "operationName": "searchObservationHistories"
+            "operationName": "linkTracks"
         },
-        "packageName": "gotham",
-        "exampleError": "InvalidGeotimeObservations",
+        "packageName": "gotham._errors",
+        "errorPackageName": "gotham.v1.gotham.errors",
+        "exampleError": "InvalidTrackRid",
         "exampleGenericError": "BadRequestError",
-        "exampleErrorMessage": "Geotime observation not found"
+        "exampleErrorMessage": "Track rid has an incorrect format",
+        "errorTestParameters": {
+            "trackRid": "ri.a.b.c.d"
+        },
+        "errorTest2Parameters": {
+            "trackRid": 123
+        },
+        "errorTestSecondError": "InvalidSidc"
     },
     "paginationExampleOperation": {
         "majorVersion": "v1",

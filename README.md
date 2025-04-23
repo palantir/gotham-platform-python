@@ -222,40 +222,36 @@ the [Pydantic error documentation](https://docs.pydantic.dev/latest/errors/error
 experience. See [Static Type Analysis](#static-types) below for more information.
 
 ### HTTP exceptions
-Each operation includes a list of possible exceptions that can be thrown which can be thrown by the server, all of which inherit from `PalantirRPCException`. For example, an operation that interacts with geotemporal data might throw a `InvalidGeotimeObservations` error, which is defined as follows:
+Each operation includes a list of possible exceptions that can be thrown which can be thrown by the server, all of which inherit from `PalantirRPCException`. For example, an operation that interacts with target tracks might throw an `InvalidTrackRid` error, which is defined as follows:
 
 ```python
-class InvalidGeotimeObservationsParameters(TypedDict):
-    """At least one Observation was invalid, so none were written to Geotime."""
+class InvalidTrackRidParameters(typing_extensions.TypedDict):
+    """The provided rid is not a valid Track rid."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    invalidObservations: List[InvalidObservation]
+    trackRid: geotime_models.TrackRid
 
 
 @dataclass
-class InvalidGeotimeObservations(BadRequestError):
-    name: Literal["InvalidGeotimeObservations"]
-    parameters: InvalidGeotimeObservationsParameters
+class InvalidTrackRid(errors.BadRequestError):
+    name: typing.Literal["InvalidTrackRid"]
+    parameters: InvalidTrackRidParameters
     error_instance_id: str
 
 ```
 As a user, you can catch this exception and handle it accordingly.
 
 ```python
-from gotham.v1.gotham.errors import InvalidGeotimeObservations
+from gotham.v1.gotham._errors.errors import InvalidTrackRid
 
 try:
-    response = client.geotime.Geotime.search_observation_histories(
-        observation_spec_id,
-        query=query,
-        history_window=history_window,
-        page_token=page_token,
-        preview=preview,
+    response = client.geotime.Geotime.link_tracks(
+        other_track_rid=other_track_rid, track_rid=track_rid, preview=preview
     )
     ...
-except InvalidGeotimeObservations as e:
-    print("Geotime observation not found", e.parameters[...])
+except InvalidTrackRid as e:
+    print("Track rid has an incorrect format", e.parameters[...])
 
 ```
 
@@ -276,20 +272,16 @@ catch a generic subclass of `PalantirRPCException` such as `BadRequestError` or 
 | Other       | `PalantirRPCException`       |
 
 ```python
-from gotham import PalantirRPCException
-from gotham import BadRequestError
+from gotham._errors import PalantirRPCException
+from gotham.v1.gotham.errors import BadRequestError
 
 try:
-    api_response = client.geotime.Geotime.search_observation_histories(
-        observation_spec_id,
-        query=query,
-        history_window=history_window,
-        page_token=page_token,
-        preview=preview,
+    api_response = client.geotime.Geotime.link_tracks(
+        other_track_rid=other_track_rid, track_rid=track_rid, preview=preview
     )
     ...
 except BadRequestError as e:
-    print("Geotime observation not found", e)
+    print("Track rid has an incorrect format", e)
 except PalantirRPCException as e:
     print("Another HTTP exception occurred", e)
 

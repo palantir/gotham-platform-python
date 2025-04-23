@@ -24,18 +24,20 @@ from datetime import datetime
 
 import click
 
-import gotham.v1
+from gotham import EnvironmentNotConfigured
+from gotham import UserTokenAuth
+from gotham.v1 import GothamClient
 
 
 @dataclasses.dataclass
 class _Context:
-    obj: gotham.v1.GothamClient
+    obj: GothamClient
 
 
 def get_from_environ(key: str) -> str:
     value = os.environ.get(key)
     if value is None:
-        raise gotham.EnvironmentNotConfigured(f"Please set {key} using `export {key}=<{key}>`")
+        raise EnvironmentNotConfigured(f"Please set {key} using `export {key}=<{key}>`")
 
     return value
 
@@ -44,8 +46,8 @@ def get_from_environ(key: str) -> str:
 @click.pass_context  # type: ignore
 def cli(ctx: click.Context):
     """An experimental CLI for the Gotham API"""
-    ctx.obj = gotham.v1.GothamClient(
-        auth=gotham.UserTokenAuth(token=get_from_environ("TOKEN")),
+    ctx.obj = GothamClient(
+        auth=UserTokenAuth(token=get_from_environ("TOKEN")),
         hostname=get_from_environ("HOSTNAME"),
     )
 
@@ -70,7 +72,7 @@ def federated_sources_federated_source():
 )
 @click.pass_obj
 def federated_sources_federated_source_list(
-    client: gotham.v1.GothamClient,
+    client: GothamClient,
     preview: typing.Optional[bool],
 ):
     """
@@ -128,7 +130,7 @@ def gaia_map():
 )
 @click.pass_obj
 def gaia_map_add_artifacts(
-    client: gotham.v1.GothamClient,
+    client: GothamClient,
     map_rid: str,
     artifact_gids: str,
     label: str,
@@ -173,7 +175,7 @@ def gaia_map_add_artifacts(
 )
 @click.pass_obj
 def gaia_map_add_enterprise_map_layers(
-    client: gotham.v1.GothamClient,
+    client: GothamClient,
     map_rid: str,
     eml_ids: str,
     preview: typing.Optional[bool],
@@ -217,7 +219,7 @@ def gaia_map_add_enterprise_map_layers(
 )
 @click.pass_obj
 def gaia_map_add_objects(
-    client: gotham.v1.GothamClient,
+    client: GothamClient,
     map_rid: str,
     label: str,
     object_rids: str,
@@ -262,7 +264,7 @@ def gaia_map_add_objects(
 )
 @click.pass_obj
 def gaia_map_export_kmz(
-    client: gotham.v1.GothamClient,
+    client: GothamClient,
     map_id: str,
     name: typing.Optional[str],
     preview: typing.Optional[bool],
@@ -296,7 +298,7 @@ def gaia_map_export_kmz(
 )
 @click.pass_obj
 def gaia_map_load(
-    client: gotham.v1.GothamClient,
+    client: GothamClient,
     map_gid: str,
     preview: typing.Optional[bool],
 ):
@@ -338,7 +340,7 @@ def gaia_map_load(
 )
 @click.pass_obj
 def gaia_map_load_layers(
-    client: gotham.v1.GothamClient,
+    client: GothamClient,
     map_gid: str,
     layer_ids: str,
     preview: typing.Optional[bool],
@@ -367,7 +369,7 @@ def gaia_map_load_layers(
 )
 @click.pass_obj
 def gaia_map_render_symbol(
-    client: gotham.v1.GothamClient,
+    client: GothamClient,
     gaia_symbol: str,
     preview: typing.Optional[bool],
 ):
@@ -413,7 +415,7 @@ def gaia_map_render_symbol(
 )
 @click.pass_obj
 def gaia_map_search(
-    client: gotham.v1.GothamClient,
+    client: GothamClient,
     map_name: str,
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
@@ -459,7 +461,7 @@ def geotime_geotime():
 )
 @click.pass_obj
 def geotime_geotime_link_track_and_object(
-    client: gotham.v1.GothamClient,
+    client: GothamClient,
     object_rid: str,
     track_rid: str,
     preview: typing.Optional[bool],
@@ -494,7 +496,7 @@ def geotime_geotime_link_track_and_object(
 )
 @click.pass_obj
 def geotime_geotime_link_tracks(
-    client: gotham.v1.GothamClient,
+    client: GothamClient,
     other_track_rid: str,
     track_rid: str,
     preview: typing.Optional[bool],
@@ -527,7 +529,7 @@ def geotime_geotime_link_tracks(
 )
 @click.pass_obj
 def geotime_geotime_put_convolution_metadata(
-    client: gotham.v1.GothamClient,
+    client: GothamClient,
     convolutions: str,
     preview: typing.Optional[bool],
 ):
@@ -560,7 +562,7 @@ def geotime_geotime_put_convolution_metadata(
 )
 @click.pass_obj
 def geotime_geotime_search_latest_observations(
-    client: gotham.v1.GothamClient,
+    client: GothamClient,
     observation_spec_id: str,
     query: str,
     page_token: typing.Optional[str],
@@ -599,7 +601,7 @@ def geotime_geotime_search_latest_observations(
 )
 @click.pass_obj
 def geotime_geotime_search_observation_histories(
-    client: gotham.v1.GothamClient,
+    client: GothamClient,
     observation_spec_id: str,
     query: str,
     history_window: typing.Optional[str],
@@ -639,7 +641,7 @@ def geotime_geotime_search_observation_histories(
 )
 @click.pass_obj
 def geotime_geotime_unlink_track_and_object(
-    client: gotham.v1.GothamClient,
+    client: GothamClient,
     object_rid: str,
     track_rid: str,
     preview: typing.Optional[bool],
@@ -673,7 +675,7 @@ def geotime_geotime_unlink_track_and_object(
 )
 @click.pass_obj
 def geotime_geotime_unlink_tracks(
-    client: gotham.v1.GothamClient,
+    client: GothamClient,
     other_track_rid: str,
     track_rid: str,
     preview: typing.Optional[bool],
@@ -706,7 +708,7 @@ def geotime_geotime_unlink_tracks(
 )
 @click.pass_obj
 def geotime_geotime_write_observations(
-    client: gotham.v1.GothamClient,
+    client: GothamClient,
     write_observations_request: str,
     preview: typing.Optional[bool],
 ):
@@ -754,7 +756,7 @@ def inbox_messages():
 )
 @click.pass_obj
 def inbox_messages_send(
-    client: gotham.v1.GothamClient,
+    client: GothamClient,
     messages: str,
     preview: typing.Optional[bool],
 ):
@@ -813,7 +815,7 @@ def map_rendering_map_rendering():
 )
 @click.pass_obj
 def map_rendering_map_rendering_load_generic_symbol(
-    client: gotham.v1.GothamClient,
+    client: GothamClient,
     id: str,
     preview: typing.Optional[bool],
     size: typing.Optional[int],
@@ -853,7 +855,7 @@ def map_rendering_map_rendering_load_generic_symbol(
 )
 @click.pass_obj
 def map_rendering_map_rendering_load_resource_tile(
-    client: gotham.v1.GothamClient,
+    client: GothamClient,
     tileset: str,
     zoom: int,
     x_coordinate: int,
@@ -895,7 +897,7 @@ def map_rendering_map_rendering_load_resource_tile(
 )
 @click.pass_obj
 def map_rendering_map_rendering_render_objects(
-    client: gotham.v1.GothamClient,
+    client: GothamClient,
     capabilities: str,
     invocations: str,
     preview: typing.Optional[bool],
@@ -939,7 +941,7 @@ def media_media():
 )
 @click.pass_obj
 def media_media_get_media_content(
-    client: gotham.v1.GothamClient,
+    client: GothamClient,
     media_rid: str,
     preview: typing.Optional[bool],
 ):
@@ -970,7 +972,7 @@ def media_media_get_media_content(
 )
 @click.pass_obj
 def media_media_get_object_media(
-    client: gotham.v1.GothamClient,
+    client: GothamClient,
     primary_key: str,
     preview: typing.Optional[bool],
 ):
@@ -1032,7 +1034,7 @@ Example: Building
 )
 @click.pass_obj
 def target_workbench_targets_create(
-    client: gotham.v1.GothamClient,
+    client: GothamClient,
     aimpoints: str,
     column: str,
     name: str,
@@ -1100,7 +1102,7 @@ def target_workbench_targets_create(
 @click.option("--source", type=str, required=False, help="""""")
 @click.pass_obj
 def target_workbench_targets_create_intel(
-    client: gotham.v1.GothamClient,
+    client: GothamClient,
     rid: str,
     domain: typing.Literal[
         "SIGINT", "OSINT", "IMINT", "ELINT", "HUMINT", "OTHER", "ALL_SOURCE", "GEOINT"
@@ -1146,7 +1148,7 @@ def target_workbench_targets_create_intel(
 )
 @click.pass_obj
 def target_workbench_targets_delete(
-    client: gotham.v1.GothamClient,
+    client: GothamClient,
     rid: str,
     preview: typing.Optional[bool],
 ):
@@ -1178,7 +1180,7 @@ def target_workbench_targets_delete(
 )
 @click.pass_obj
 def target_workbench_targets_get(
-    client: gotham.v1.GothamClient,
+    client: GothamClient,
     rid: str,
     preview: typing.Optional[bool],
 ):
@@ -1205,7 +1207,7 @@ def target_workbench_targets_get(
 )
 @click.pass_obj
 def target_workbench_targets_remove_intel(
-    client: gotham.v1.GothamClient,
+    client: GothamClient,
     rid: str,
     id: str,
     preview: typing.Optional[bool],
@@ -1276,7 +1278,7 @@ Example: Building
 )
 @click.pass_obj
 def target_workbench_targets_update(
-    client: gotham.v1.GothamClient,
+    client: GothamClient,
     rid: str,
     aimpoints: str,
     base_revision_id: int,
@@ -1336,7 +1338,7 @@ def target_workbench_target_boards():
 )
 @click.pass_obj
 def target_workbench_target_boards_create(
-    client: gotham.v1.GothamClient,
+    client: GothamClient,
     name: str,
     security: str,
     configuration: typing.Optional[str],
@@ -1371,7 +1373,7 @@ def target_workbench_target_boards_create(
 )
 @click.pass_obj
 def target_workbench_target_boards_delete(
-    client: gotham.v1.GothamClient,
+    client: GothamClient,
     rid: str,
     preview: typing.Optional[bool],
 ):
@@ -1402,7 +1404,7 @@ def target_workbench_target_boards_delete(
 )
 @click.pass_obj
 def target_workbench_target_boards_get(
-    client: gotham.v1.GothamClient,
+    client: GothamClient,
     rid: str,
     preview: typing.Optional[bool],
 ):
@@ -1445,7 +1447,7 @@ at a frequent interval.
 )
 @click.pass_obj
 def target_workbench_target_boards_load_target_pucks(
-    client: gotham.v1.GothamClient,
+    client: GothamClient,
     rid: str,
     load_level: str,
     allow_stale_loads: typing.Optional[bool],
@@ -1494,7 +1496,7 @@ these operations when they're applied, that will be noted in the response.
 )
 @click.pass_obj
 def target_workbench_target_boards_update(
-    client: gotham.v1.GothamClient,
+    client: GothamClient,
     rid: str,
     base_revision_id: int,
     name: str,
@@ -1555,7 +1557,7 @@ submitted them.
 )
 @click.pass_obj
 def target_workbench_target_boards_update_target_column(
-    client: gotham.v1.GothamClient,
+    client: GothamClient,
     target_rid: str,
     base_revision_id: int,
     board_rid: str,
@@ -1603,7 +1605,7 @@ def target_workbench_high_priority_target_lists():
 @click.option("--target_board", type=str, required=False, help="""""")
 @click.pass_obj
 def target_workbench_high_priority_target_lists_create(
-    client: gotham.v1.GothamClient,
+    client: GothamClient,
     name: str,
     security: str,
     target_aois: str,
@@ -1644,7 +1646,7 @@ def target_workbench_high_priority_target_lists_create(
 )
 @click.pass_obj
 def target_workbench_high_priority_target_lists_get(
-    client: gotham.v1.GothamClient,
+    client: GothamClient,
     rid: str,
     preview: typing.Optional[bool],
 ):
@@ -1687,7 +1689,7 @@ these operations when they're applied, that will be noted in the response.
 @click.option("--target_board", type=str, required=False, help="""""")
 @click.pass_obj
 def target_workbench_high_priority_target_lists_update(
-    client: gotham.v1.GothamClient,
+    client: GothamClient,
     rid: str,
     base_revision_id: int,
     target_aois: str,

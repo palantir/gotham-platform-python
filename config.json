@@ -35,8 +35,7 @@
         },
         "errorTest2Parameters": {
             "trackRid": 123
-        },
-        "errorTestSecondError": "InvalidSidc"
+        }
     },
     "paginationExampleOperation": {
         "majorVersion": "v1",

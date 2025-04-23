@@ -6,9 +6,11 @@ from gotham import PalantirRPCException
 from gotham._errors.utils import deserialize_error
 from gotham.v1.gotham.errors import InvalidTrackRid
 
+
 class MockError(PalantirRPCException):
     def __init__(self, name):
         super().__init__(name)
+
 
 ERRORS_MAP = {
     "MockError": MockError,

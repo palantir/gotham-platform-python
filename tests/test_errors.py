@@ -36,7 +36,7 @@ def test_falls_back_to_standard_if_parsing_fails():
             {
                 "errorName": "InvalidTrackRid",
                 "errorInstanceId": "123",
-                "parameters": {"trackRid": "ri.a.b.c.d"},
+                "parameters": {"trackRid": 123},
             },
             ERRORS_MAP,
         )

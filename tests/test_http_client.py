@@ -124,7 +124,7 @@ def test_default_headers():
         "Accept-Encoding": "gzip, deflate",
         "Accept": "*/*",
         "Connection": "keep-alive",
-        "User-Agent": f"python-foundry-platform-sdk/{__version__} python/3.{sys.version_info.minor}",
+        "User-Agent": f"gotham-platform-python-sdk/{__version__} python/3.{sys.version_info.minor}",
     }
 
     """Test that additional headers can be added."""
@@ -134,7 +134,7 @@ def test_default_headers():
         "Accept": "*/*",
         "Connection": "keep-alive",
         "Foo": "Bar",
-        "User-Agent": f"python-foundry-platform-sdk/{__version__} python/3.{sys.version_info.minor}",
+        "User-Agent": f"gotham-platform-python-sdk/{__version__} python/3.{sys.version_info.minor}",
     }
 
 

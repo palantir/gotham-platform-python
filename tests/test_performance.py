@@ -13,7 +13,7 @@ def test_import_v1_client_performance():
 
 def test_client_v1_initialization_performance():
     init_time = timeit.timeit(
-        stmt="gotham.v1.FoundryClient(gotham.UserTokenAuth(token='token'), hostname='localhost')",
+        stmt="gotham.v1.GothamClient.gotham.UserTokenAuth(token='token'), hostname='localhost')",
         setup="import sys; sys.modules.pop('gotham.v1', None);import gotham; import gotham.v1",
         number=1,
     )
@@ -23,7 +23,7 @@ def test_client_v1_initialization_performance():
 
 def test_federated_sources_v1_client_access_performance():
     init_and_access_time = timeit.timeit(
-        stmt="gotham.v1.FoundryClient(gotham.UserTokenAuth(token='token'), hostname='localhost').federated_sources",
+        stmt="gotham.v1.GothamClient.gotham.UserTokenAuth(token='token'), hostname='localhost').federated_sources",
         setup="import sys; sys.modules.pop('gotham.v1', None);import gotham; import gotham.v1",
         number=1,
     )
@@ -43,7 +43,7 @@ def test_federated_sources_v1_models_import_performance():
 
 def test_gaia_v1_client_access_performance():
     init_and_access_time = timeit.timeit(
-        stmt="gotham.v1.FoundryClient(gotham.UserTokenAuth(token='token'), hostname='localhost').gaia",
+        stmt="gotham.v1.GothamClient.gotham.UserTokenAuth(token='token'), hostname='localhost').gaia",
         setup="import sys; sys.modules.pop('gotham.v1', None);import gotham; import gotham.v1",
         number=1,
     )
@@ -63,7 +63,7 @@ def test_gaia_v1_models_import_performance():
 
 def test_geotime_v1_client_access_performance():
     init_and_access_time = timeit.timeit(
-        stmt="gotham.v1.FoundryClient(gotham.UserTokenAuth(token='token'), hostname='localhost').geotime",
+        stmt="gotham.v1.GothamClient.gotham.UserTokenAuth(token='token'), hostname='localhost').geotime",
         setup="import sys; sys.modules.pop('gotham.v1', None);import gotham; import gotham.v1",
         number=1,
     )
@@ -83,7 +83,7 @@ def test_geotime_v1_models_import_performance():
 
 def test_inbox_v1_client_access_performance():
     init_and_access_time = timeit.timeit(
-        stmt="gotham.v1.FoundryClient(gotham.UserTokenAuth(token='token'), hostname='localhost').inbox",
+        stmt="gotham.v1.GothamClient.gotham.UserTokenAuth(token='token'), hostname='localhost').inbox",
         setup="import sys; sys.modules.pop('gotham.v1', None);import gotham; import gotham.v1",
         number=1,
     )
@@ -103,7 +103,7 @@ def test_inbox_v1_models_import_performance():
 
 def test_map_rendering_v1_client_access_performance():
     init_and_access_time = timeit.timeit(
-        stmt="gotham.v1.FoundryClient(gotham.UserTokenAuth(token='token'), hostname='localhost').map_rendering",
+        stmt="gotham.v1.GothamClient.gotham.UserTokenAuth(token='token'), hostname='localhost').map_rendering",
         setup="import sys; sys.modules.pop('gotham.v1', None);import gotham; import gotham.v1",
         number=1,
     )
@@ -123,7 +123,7 @@ def test_map_rendering_v1_models_import_performance():
 
 def test_media_v1_client_access_performance():
     init_and_access_time = timeit.timeit(
-        stmt="gotham.v1.FoundryClient(gotham.UserTokenAuth(token='token'), hostname='localhost').media",
+        stmt="gotham.v1.GothamClient.gotham.UserTokenAuth(token='token'), hostname='localhost').media",
         setup="import sys; sys.modules.pop('gotham.v1', None);import gotham; import gotham.v1",
         number=1,
     )
@@ -143,7 +143,7 @@ def test_media_v1_models_import_performance():
 
 def test_target_workbench_v1_client_access_performance():
     init_and_access_time = timeit.timeit(
-        stmt="gotham.v1.FoundryClient(gotham.UserTokenAuth(token='token'), hostname='localhost').target_workbench",
+        stmt="gotham.v1.GothamClient.gotham.UserTokenAuth(token='token'), hostname='localhost').target_workbench",
         setup="import sys; sys.modules.pop('gotham.v1', None);import gotham; import gotham.v1",
         number=1,
     )

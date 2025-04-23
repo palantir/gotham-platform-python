@@ -42,8 +42,8 @@ def get_from_environ(key: str) -> str:
 
 @click.group()  # type: ignore
 @click.pass_context  # type: ignore
-def cli(ctx: _Context):
-    "An experimental CLI for the Gotham API"
+def cli(ctx: click.Context):
+    """An experimental CLI for the Gotham API"""
     ctx.obj = gotham.v1.GothamClient(
         auth=gotham.UserTokenAuth(token=get_from_environ("TOKEN")),
         hostname=get_from_environ("HOSTNAME"),

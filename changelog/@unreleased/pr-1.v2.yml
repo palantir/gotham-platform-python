@@ -1,0 +1,5 @@
+type: feature
+feature:
+  description: init release
+  links:
+  - https://github.com/palantir/gotham-platform-python/pull/1

@@ -1,0 +1,74 @@
+{
+    "packageName": "gotham",
+    "packageUrl": "https://github.com/palantir/gotham-platform-python",
+    "projectName": "gotham-platform-python",
+    "clientName": "GothamClient",
+    "platformName": "Gotham",
+    "userHeader": "gotham-platform-python-sdk",
+    "description": "The official Python library for the Gotham API",
+    "documentationBaseUrl": "https://palantir.com",
+    "promotedMajorVersion": "v1",
+    "exampleOperation": {
+        "majorVersion": "v1",
+        "operationName": "searchObservationHistories"
+    },
+    "validation": {
+        "exampleOperation": {
+            "majorVersion": "v1",
+            "operationName": "createTargetBoardV2"
+        },
+        "exampleParameter": "high_priority_target_list",
+        "exampleVerb": "load"
+    },
+    "exceptions": {
+        "exampleOperation": {
+            "majorVersion": "v1",
+            "operationName": "linkTracks"
+        },
+        "packageName": "gotham._errors",
+        "errorPackageName": "gotham.v1.gotham.errors",
+        "exampleError": "InvalidTrackRid",
+        "exampleGenericError": "BadRequestError",
+        "exampleErrorMessage": "Track rid has an incorrect format",
+        "errorTestParameters": {
+            "trackRid": "ri.a.b.c.d"
+        },
+        "errorTest2Parameters": {
+            "trackRid": 123
+        }
+    },
+    "paginationExampleOperation": {
+        "majorVersion": "v1",
+        "operationName": "searchObservationHistories"
+    },
+    "streamingExampleOperation": {
+        "majorVersion": "v1",
+        "operationName": "loadGenericSymbol"
+    },
+    "staticTypes" : {
+        "exampleOperation": {
+            "majorVersion": "v1",
+            "operationName": "searchLatestObservations"
+        },
+        "exampleNamespace": "Geotime",
+        "exampleUnionParam": "ObservationQuery"
+    },
+    "majorVersionConfigs": {
+        "v1": {
+            "additionalRelationships": [],
+            "namespaces": {
+                "Foundry": true,
+                "Gaia": true,
+                "Geotime": true,
+                "Gotham": true,
+                "MapRendering": true,
+                "Inbox": true,
+                "Media": true,
+                "FederatedSources": true,
+                "TargetWorkbench": true,
+                "TargetingApiGatewayService": false,
+                "Objects": false
+            }
+        }
+    }
+}
